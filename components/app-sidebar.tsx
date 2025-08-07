@@ -1,174 +1,148 @@
-"use client"
-
 import * as React from "react"
+import { CodeIcon, GalleryVerticalEnd, HomeIcon, Minus, Plus, TrendingUpIcon } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import logo from "@/images/logo.png"
+// import CreateCommunityButton from "./Header/createcommunitybutton"
+import { SearchForm } from "@/components/search-form"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
+  SidebarGroup,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import CreateCommunityButton from "./Header/CreateCommunityButton"
+
+type sidebarData ={
+  navMain: {
+    title: string;
+    url: string;
+    items: {
+      title: string;
+      url: string;
+      isActive: boolean;
+    }[];
+  }[];
+};
 
 // This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+const sidebarData: SidebarData = {
   navMain: [
     {
-      title: "Playground",
+      title: "Communities",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
       items: [
         {
-          title: "History",
+          title: "Installation",
           url: "#",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
+          title: "Project Structure",
           url: "#",
         },
       ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+ // TODO get all from sanitary
+ //const subreddits = await getSubreddits();
+ 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              {/* <Link href="/"> */}
+              <Image src={logo} alt="logo" width={150} height={150} />
+              {/* </Link> */}
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+        <SearchForm />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+      <SidebarGroup>
+        <SidebarMenuItem>
+        <SidebarMenuButton asChild>
+        <CreateCommunityButton />
+        </SidebarMenuButton>
+        <SidebarMenuButton asChild className="p-5">
+          <Link href="/">
+          <HomeIcon className="w-4 h-4 mr-2"/>
+          Home
+          </Link>
+        </SidebarMenuButton>
+
+ <SidebarMenuButton asChild className="p-5">
+          <Link href="/">
+          <TrendingUpIcon className="w-4 h-4 mr-2"/>
+          Trending Talks
+          </Link>
+        </SidebarMenuButton> 
+
+         <SidebarMenuButton asChild className="p-5">
+          <Link href="/">
+          <CodeIcon className="w-4 h-4 mr-2"/>
+          Complier
+          </Link>
+        </SidebarMenuButton>        
+
+        </SidebarMenuItem>
+      </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarMenu>
+            {sidebarData.navMain.map((item, index) => (
+              <Collapsible
+                key={item.title}
+                defaultOpen={index === 1}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton>
+                      {item.title}{" "}
+                      <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
+                      <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  {item.items?.length ? (
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        {item.items.map((item) => (
+                          <SidebarMenuSubItem key={item.title}>
+                            <SidebarMenuSubButton
+                              asChild
+                              isActive={item.isActive}
+                            >
+                              <a href={item.url}>{item.title}</a>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  ) : null}
+                </SidebarMenuItem>
+              </Collapsible>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
