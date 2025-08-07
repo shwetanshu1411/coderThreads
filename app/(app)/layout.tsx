@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import Header from "@/components/ui/header";
+import Header from "@/components/Header/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -34,8 +34,12 @@ export default function RootLayout({
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
-            
+
         <Header />
+        <div className="flex flex-col">
+        {children}
+        </div>
+
         </SidebarInset>
         {children}
         </SidebarProvider>
