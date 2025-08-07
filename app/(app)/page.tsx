@@ -11,6 +11,7 @@ export default function Home() {
 
       <h1>Hyy World {count}</h1>
       <TestComp abc={setCount}/>
+      Hello
       <Button onClick={()=>{
         setCount((prev)=>prev+1);
         setCount((prev)=>prev+1);
