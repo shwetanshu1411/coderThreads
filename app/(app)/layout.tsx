@@ -41,7 +41,7 @@ export default function RootLayout({
         </div>
 
         </SidebarInset>
-        {children}
+        
         </SidebarProvider>
       </body>
     </html>
