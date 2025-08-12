@@ -1,25 +1,31 @@
-"use client"
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-// import { TestComp } from "@/components/TestComp";
-import { Halant } from "next/font/google";
-import { ok } from "assert";
-export default function Home() {
-  
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      {/* <h1>Hello World </h1> */}
 
+export default function Home() 
+{
+  return(
+    <>
+    {/* banner  */}
+    <section className="bg-white border-b">
+      <div className="mx-auto max-w-7xl px-4 py-6">
+        <div className="flex items-centre">
+          <div>
+            <h1 className="text-2xl font-bold">Home</h1>
+            <p className="text-sm text-gray-600">
+              Recent posts by our coders
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    
-      <TestComp abc={setCount}/>
-     
-      <Button onClick={()=>{
-        setCount((prev)=>prev+1);
-        setCount((prev)=>prev+1);
-        setCount((prev)=>prev+1);
-        console.log(count);}}>Click Me</Button>
-    </div>
-  );
+    {/* post  */}
+    <section className="my-8">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="flex flex-col gap-4">
+          {/* <PostsList /> */}
+        </div>
+      </div>
+    </section>
+</>
+  )
 }
